@@ -35,7 +35,8 @@ public class MainActivity extends AppCompatActivity {
         if (mFirebaseUser == null) {
             // Not logged in, launch the Log In activity
             loadLogInView();
-        } else {
+        }
+        else {
             mUserId = mFirebaseUser.getUid();
 
             // Set up ListView

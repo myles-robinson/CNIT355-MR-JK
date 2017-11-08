@@ -36,38 +36,38 @@ public class SignUpActivity extends AppCompatActivity {
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String password = passwordEditText.getText().toString();
-                String email = emailEditText.getText().toString();
+            String password = passwordEditText.getText().toString();
+            String email = emailEditText.getText().toString();
 
-                password = password.trim();
-                email = email.trim();
+            password = password.trim();
+            email = email.trim();
 
-                if (password.isEmpty() || email.isEmpty()) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(SignUpActivity.this);
-                    builder.setMessage("Enter an email and password.").setTitle("Error.").setPositiveButton(android.R.string.ok, null);
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
-                }
-                else{
-                    mFirebaseAuth.createUserWithEmailAndPassword(email, password)
-                            .addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()) {
-                                        Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                        startActivity(intent);
-                                    }
-                                    else{
-                                        AlertDialog.Builder builder = new AlertDialog.Builder(SignUpActivity.this);
-                                        builder.setMessage(task.getException().getMessage()).setTitle("Error.").setPositiveButton(android.R.string.ok, null);
-                                        AlertDialog dialog = builder.create();
-                                        dialog.show();
-                                    }
-                                }
-                            });
-                }
+            if (password.isEmpty() || email.isEmpty()) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(SignUpActivity.this);
+                builder.setMessage("Enter an email and password.").setTitle("Error.").setPositiveButton(android.R.string.ok, null);
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+            else{
+                mFirebaseAuth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                        }
+                        else{
+                            AlertDialog.Builder builder = new AlertDialog.Builder(SignUpActivity.this);
+                            builder.setMessage(task.getException().getMessage()).setTitle("Error.").setPositiveButton(android.R.string.ok, null);
+                            AlertDialog dialog = builder.create();
+                            dialog.show();
+                        }
+                        }
+                    });
+            }
             }
         });
     }

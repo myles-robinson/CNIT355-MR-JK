@@ -6,4 +6,12 @@
     android:layout_height="match_parent"
     tools:context="com.cnit355.myles.a355_project.MainActivity">
 
+    <TextView
+        android:id="@+id/signUpTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/loginButton"
+        android:layout_centerInParent="true"
+        android:text="Main" />
+
 </RelativeLayout>

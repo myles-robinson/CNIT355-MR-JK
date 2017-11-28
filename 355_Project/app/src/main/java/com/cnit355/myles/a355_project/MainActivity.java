@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -24,6 +25,12 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseUser mFirebaseUser;
     private DatabaseReference mDatabase;
     private String mUserId;
+
+    Spinner yearSpinner, daySpinner, monthSpinner;
+    String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+    String[] days = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"};
+    String[] years = {"2016", "2017", "2018"};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +39,20 @@ public class MainActivity extends AppCompatActivity {
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        yearSpinner = (Spinner)findViewById(R.id.yearSpinner);
+        monthSpinner = (Spinner)findViewById(R.id.monthSpinner);
+        daySpinner = (Spinner)findViewById(R.id.daySpinner);
+
+        ArrayAdapter<String> yearAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, years);
+        ArrayAdapter<String> monthAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, months);
+        ArrayAdapter<String> dayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, days);
+        dayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        monthAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        yearAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        yearSpinner.setAdapter(yearAdapter);
+        daySpinner.setAdapter(dayAdapter);
+        monthSpinner.setAdapter(monthAdapter);
 
         if (mFirebaseUser == null) {
             // Not logged in, launch the Log In activity
@@ -46,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
             listView.setAdapter(adapter);
 
             // Add items via the Button and EditText at the bottom of the view.
-            final EditText text = (EditText) findViewById(R.id.addEventEditText);
+            final EditText text = (EditText) findViewById(R.id.eventTitleEditText);
             final Button button = (Button) findViewById(R.id.addButton);
             button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {

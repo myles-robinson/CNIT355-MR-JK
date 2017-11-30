@@ -4,3 +4,7 @@ https://www.sitepoint.com/creating-a-cloud-backend-for-your-android-app-using-fi
 
 Firebase Tutorial
 https://www.tutorialspoint.com/firebase/
+
+
+More Firebase Help
+https://firebase.google.com/docs/database/android/lists-of-data

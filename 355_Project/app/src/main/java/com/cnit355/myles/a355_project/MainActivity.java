@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseUser mFirebaseUser;
     private DatabaseReference mDatabase;
     private String mUserId;
+    private int eventID = 0;
 
     Spinner yearSpinner, daySpinner, monthSpinner;
     String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
@@ -124,12 +125,14 @@ public class MainActivity extends AppCompatActivity {
 
             button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
+                    eventID++;
                     eventTitle = String.valueOf(titleEditText.getText());
                     eventDescription = String.valueOf(descriptionEditText.getText());
                     eventLocation = String.valueOf(locationEditText.getText());
                     Event newEvent = new Event(eventTitle, eventDescription, eventLocation, eventMonth, eventYear, eventDay);
 
-                    mDatabase.child("Events").push().setValue(newEvent);
+                   // mDatabase.child("Events").push().setValue(newEvent);
+                    mDatabase.child("Events").child(String.valueOf(eventID)).setValue(newEvent);
                     titleEditText.setText("");
                     descriptionEditText.setText("");
                     locationEditText.setText("");
@@ -142,27 +145,37 @@ public class MainActivity extends AppCompatActivity {
             ValueEventListener newEventListener = new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    Map<String, String> map = (Map)dataSnapshot.child("Events").getValue();
+//                    ArrayList<String> keys = new ArrayList<String>();
+//                    Event e = dataSnapshot.child("Events").getValue(Event.class);
+//                    Log.i("Event", e.toString());
+//                    for (DataSnapshot snap: dataSnapshot.child("Events").getChildren()) {
+//                        keys.add(snap.getKey());
+//                        Log.i("key", snap.child(keys.get(0)).toString());
+                        Map<String, String> map = (Map)dataSnapshot.child("Events").child("1").getValue();
                     String title = map.get("title");
                     adapter.add(title);
-
+//                    }
                 }
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
-                    // Getting Post failed, log a message
+
                 }
             };
             mDatabase.addValueEventListener(newEventListener);
 
             // Use Firebase to populate the list.
-//            mDatabase.child("Events").addChildEventListener(new ChildEventListener() {
+//            mDatabase.addChildEventListener(new ChildEventListener() {
 //                @Override
 //                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-//                    Log.i("snapshot", dataSnapshot.child("Events").getKey());
-//                    Event event = dataSnapshot.child("Events").getValue(Event.class);
-//                    adapter.add(event.getTitle());
-//                   // collectEventTitles((Map<String,Object>) dataSnapshot.getValue());
+//                    ArrayList<String> keys = new ArrayList<String>();
+//                    for (DataSnapshot snap: dataSnapshot.getChildren()) {
+//                        keys.add(snap.getKey());
+//                        Log.i("key", snap.child(keys.get(0)).toString());
+//                        Map<String, String> map = (Map)snap.child(keys.get(0)).getValue();
+//                        String title = map.get("title");
+//                        adapter.add(title);
+//                    }
 //                }
 //
 //                @Override

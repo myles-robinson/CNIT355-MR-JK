@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     Integer[] years = {2016, 2017, 2018};
     String eventTitle, eventLocation, eventDescription, eventMonth;
     int eventYear, eventDay;
-    int largestKey = 0;
+    int largestKey = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,7 +126,25 @@ public class MainActivity extends AppCompatActivity {
 
             button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    eventID++;
+                    mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for(DataSnapshot snap : dataSnapshot.child("Events").getChildren()){
+
+                                if(snap.child(String.valueOf(eventID)) != null){
+                                    Log.i("a", String.valueOf(largestKey));
+                                    largestKey = eventID+1;
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+                    eventID = largestKey +1;
                     eventTitle = String.valueOf(titleEditText.getText());
                     eventDescription = String.valueOf(descriptionEditText.getText());
                     eventLocation = String.valueOf(locationEditText.getText());
@@ -148,12 +166,12 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     int id = 1;
+                    adapter.clear();
                     for (DataSnapshot snap: dataSnapshot.child("Events").getChildren()) {
                         Map<String, String> map = (Map)dataSnapshot.child("Events").child(String.valueOf(id)).getValue();
                         String title = map.get("title");
                         adapter.add(title);
                         id++;
-                        Log.i("key", snap.getKey());
                     }
                 }
 

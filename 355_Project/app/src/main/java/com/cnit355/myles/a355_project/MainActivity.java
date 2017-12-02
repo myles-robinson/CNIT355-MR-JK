@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     Integer[] years = {2016, 2017, 2018};
     String eventTitle, eventLocation, eventDescription, eventMonth;
     int eventYear, eventDay;
+    int largestKey = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
 
                    // mDatabase.child("Events").push().setValue(newEvent);
                     mDatabase.child("Events").child(String.valueOf(eventID)).setValue(newEvent);
+
                     titleEditText.setText("");
                     descriptionEditText.setText("");
                     locationEditText.setText("");
@@ -145,16 +147,14 @@ public class MainActivity extends AppCompatActivity {
             ValueEventListener newEventListener = new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-//                    ArrayList<String> keys = new ArrayList<String>();
-//                    Event e = dataSnapshot.child("Events").getValue(Event.class);
-//                    Log.i("Event", e.toString());
-//                    for (DataSnapshot snap: dataSnapshot.child("Events").getChildren()) {
-//                        keys.add(snap.getKey());
-//                        Log.i("key", snap.child(keys.get(0)).toString());
-                        Map<String, String> map = (Map)dataSnapshot.child("Events").child("1").getValue();
-                    String title = map.get("title");
-                    adapter.add(title);
-//                    }
+                    int id = 1;
+                    for (DataSnapshot snap: dataSnapshot.child("Events").getChildren()) {
+                        Map<String, String> map = (Map)dataSnapshot.child("Events").child(String.valueOf(id)).getValue();
+                        String title = map.get("title");
+                        adapter.add(title);
+                        id++;
+                        Log.i("key", snap.getKey());
+                    }
                 }
 
                 @Override

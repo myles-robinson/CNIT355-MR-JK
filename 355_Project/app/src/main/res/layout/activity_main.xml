@@ -19,63 +19,28 @@
         android:id="@+id/eventsTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Events:"
+        android:textSize="20sp"
         android:layout_below="@+id/headerTextView"
-        android:text="Events:" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="12dp" />
 
     <ListView
         android:id="@+id/eventListView"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/eventsTextView" />
+        android:layout_marginTop="18dp"
+        android:layout_below="@+id/eventsTextView"
+        android:layout_alignParentStart="true" />
 
     <Button
-        android:id="@+id/addButton"
+        android:id="@+id/createEventButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:text="Add Event" />
+        android:text="Create Event"
+        android:onClick="createEvent"/>
 
-    <EditText
-        android:id="@+id/eventLocationEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/addButton"
-        android:hint="Where is the event?" />
-
-    <Spinner
-        android:id="@+id/monthSpinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/eventLocationEditText" />
-
-    <EditText
-        android:id="@+id/eventDescriptionEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/monthSpinner"
-        android:hint="Description." />
-
-    <EditText
-        android:id="@+id/eventTitleEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/eventDescriptionEditText"
-        android:hint="Event Title" />
-
-    <Spinner
-        android:id="@+id/daySpinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/eventLocationEditText"
-        android:layout_toRightOf="@id/monthSpinner"/>
-
-    <Spinner
-        android:id="@+id/yearSpinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/eventLocationEditText"
-        android:layout_toRightOf="@id/daySpinner" />
 
 </RelativeLayout>

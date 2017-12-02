@@ -38,12 +38,16 @@ public class CreateEventActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private String mUserId;
     private int eventID = 0;
+    int largestKey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_event);
         setTitle("Create New Event");
+
+        Intent intent = getIntent();
+        largestKey = intent.getIntExtra("listViewLength",0);
 
         yearSpinner = (Spinner)findViewById(R.id.yearSpinner);
         monthSpinner = (Spinner)findViewById(R.id.monthSpinner);
@@ -124,7 +128,7 @@ public class CreateEventActivity extends AppCompatActivity {
 
             submitButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    eventID++;
+                    eventID = largestKey + 1;
                     eventTitle = String.valueOf(titleEditText.getText());
                     eventDescription = String.valueOf(descriptionEditText.getText());
                     eventLocation = String.valueOf(locationEditText.getText());

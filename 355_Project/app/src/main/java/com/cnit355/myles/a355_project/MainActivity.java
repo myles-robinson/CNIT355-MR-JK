@@ -27,6 +27,9 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity {
 
     private DatabaseReference mDatabase;
+    ArrayAdapter<String> adapter;
+    private static final int request_code = 5;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         final ListView listView = (ListView) findViewById(R.id.eventListView);
-        final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, android.R.id.text1);
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, android.R.id.text1);
         listView.setAdapter(adapter);
 
         ValueEventListener newEventListener = new ValueEventListener() {
@@ -62,8 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void createEvent(View v){
         Intent intent = new Intent(this, CreateEventActivity.class);
-        startActivity(intent);
+        intent.putExtra("listViewLength", adapter.getCount());
+        startActivityForResult(intent, request_code);
     }
-
-
 }

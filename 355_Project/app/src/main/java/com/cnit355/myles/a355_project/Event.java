@@ -1,33 +1,36 @@
 package com.cnit355.myles.a355_project;
 
-/**
- * Created by jkwak95 on 11/29/2017.
- */
 
 public class Event {
     private String title;
     private String description;
     private String location;
     private String month;
-    private int year;
-    private int day;
+    private String year;
+    private String day;
+    private int id;
 
     public Event(){
         title = "";
         description = "";
         location = "";
         month= "";
-        year = 0;
-        day = 0;
+        year = "";
+        day = "";
+        id = 1;
     }
 
-    public Event(String t, String desc, String loc, String mo, int yr, int d){
+
+
+    public Event(String t, String desc, String loc, String mo, String yr, String d, int i){
         title = t;
         description = desc;
         location = loc;
         month = mo;
         year = yr;
         day = d;
+        id = i;
+
     }
 
     public String getTitle() {
@@ -62,19 +65,27 @@ public class Event {
         this.month = month;
     }
 
-    public int getYear() {
+    public String getYear() {
         return year;
     }
 
-    public void setYear(int year) {
+    public void setYear(String year) {
         this.year = year;
     }
 
-    public int getDay() {
+    public String getDay() {
         return day;
     }
 
-    public void setDay(int day) {
+    public void setDay(String day) {
         this.day = day;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

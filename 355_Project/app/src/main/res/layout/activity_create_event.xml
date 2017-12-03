@@ -10,11 +10,11 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="64dp"
         android:text="Create New Event"
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
     <EditText
         android:id="@+id/eventTitleEditText"
@@ -76,19 +76,19 @@
         android:id="@+id/submitButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="54dp"
+        android:layout_marginTop="60dp"
         android:text="Add Event"
-        android:layout_below="@+id/monthSpinner"
-        android:layout_alignStart="@+id/locationEditText"
-        android:layout_marginStart="50dp" />
+        android:layout_below="@+id/daySpinner"
+        android:layout_centerHorizontal="true" />
 
-    <Button
-        android:id="@+id/homeButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/submitButton"
-        android:layout_marginStart="45dp"
-        android:layout_toEndOf="@+id/submitButton"
-        android:text="Home"
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/eventTitleEditText"
+        android:layout_marginTop="17dp"
+        app:srcCompat="@drawable/backarrow"
         android:onClick="moveHome"/>
+
 </RelativeLayout>

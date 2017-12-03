@@ -31,16 +31,70 @@
         android:layout_height="200dp"
         android:layout_marginTop="18dp"
         android:layout_below="@+id/eventsTextView"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:choiceMode="singleChoice"
+        android:listSelector="@color/highlight"/>
 
     <Button
         android:id="@+id/createEventButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
         android:text="Create Event"
-        android:onClick="createEvent"/>
+        android:onClick="createEvent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/tvEventDetails"
+        android:layout_marginBottom="20dp" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Title:"
+        android:textSize="14sp"
+        android:layout_above="@+id/tvDate"
+        android:layout_toStartOf="@+id/headerTextView"
+        android:layout_marginBottom="45dp" />
+
+    <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date:"
+        android:textSize="14sp"
+        android:layout_marginBottom="38dp"
+        android:layout_above="@+id/tvLocation"
+        android:layout_alignStart="@+id/tvTitle" />
+
+    <TextView
+        android:id="@+id/tvDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Description:"
+        android:textSize="14sp"
+        android:layout_alignBaseline="@+id/tvTitle"
+        android:layout_alignBottom="@+id/tvTitle"
+        android:layout_toEndOf="@+id/createEventButton"
+        android:layout_marginStart="17dp" />
+
+    <TextView
+        android:id="@+id/tvLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Location"
+        android:textSize="14sp"
+        android:layout_marginBottom="35dp"
+        android:layout_above="@+id/createEventButton"
+        android:layout_alignStart="@+id/tvDate" />
+
+    <TextView
+        android:id="@+id/tvEventDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/eventListView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:text="Event Details For:"
+        android:textSize="18sp" />
 
 
 </RelativeLayout>

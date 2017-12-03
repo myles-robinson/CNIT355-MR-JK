@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 
@@ -27,10 +28,12 @@ public class CreateEventActivity extends AppCompatActivity {
 
     Spinner yearSpinner, daySpinner, monthSpinner;
     String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
-    Integer[] days = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31};
-    Integer[] years = {2016, 2017, 2018};
-    String eventTitle, eventLocation, eventDescription, eventMonth;
-    int eventYear, eventDay;
+//    Integer[] days = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31};
+    String[] days = {"1", "2","3", "4","7", "8","9", "10","11", "12","13", "14","15", "16","17", "18","19", "20","21", "22","23", "24","25", "26","27", "28","29", "30", "31"};
+//    Integer[] years = {2016, 2017, 2018};
+    String[] years = {"2016", "2017", "2018"};
+    String eventTitle, eventLocation, eventDescription, eventMonth, eventDay, eventYear;
+//    int eventYear, eventDay;
     Button submitButton, homeButton;
 
     private FirebaseAuth mFirebaseAuth;
@@ -53,11 +56,10 @@ public class CreateEventActivity extends AppCompatActivity {
         monthSpinner = (Spinner)findViewById(R.id.monthSpinner);
         daySpinner = (Spinner)findViewById(R.id.daySpinner);
         submitButton = (Button) findViewById(R.id.submitButton);
-        homeButton = (Button) findViewById(R.id.homeButton);
 
-        ArrayAdapter<Integer> yearAdapter = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_item, years);
+        ArrayAdapter<String> yearAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, years);
         ArrayAdapter<String> monthAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, months);
-        ArrayAdapter<Integer> dayAdapter = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_item, days);
+        ArrayAdapter<String> dayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, days);
         dayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         monthAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         yearAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -132,7 +134,7 @@ public class CreateEventActivity extends AppCompatActivity {
                     eventTitle = String.valueOf(titleEditText.getText());
                     eventDescription = String.valueOf(descriptionEditText.getText());
                     eventLocation = String.valueOf(locationEditText.getText());
-                    Event newEvent = new Event(eventTitle, eventDescription, eventLocation, eventMonth, eventYear, eventDay);
+                    Event newEvent = new Event(eventTitle, eventDescription, eventLocation, eventMonth, eventYear, eventDay, eventID);
 
                     // mDatabase.child("Events").push().setValue(newEvent);
                     mDatabase.child("Events").child(String.valueOf(eventID)).setValue(newEvent);

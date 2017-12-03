@@ -25,6 +25,7 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+        setTitle("Sign Up");
 
         // Initialize FirebaseAuth
         mFirebaseAuth = FirebaseAuth.getInstance();
@@ -70,5 +71,10 @@ public class SignUpActivity extends AppCompatActivity {
             }
             }
         });
+    }
+
+    public void moveToLogin(View v){
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
     }
 }

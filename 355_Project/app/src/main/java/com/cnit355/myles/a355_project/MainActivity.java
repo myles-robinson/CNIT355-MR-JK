@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     ArrayAdapter<String> adapter;
     private static final int request_code = 5;
+    TextView tvTitle, tvDescription, tvDate, tvLocation, tvEventDetails;
 
 
     @Override
@@ -41,6 +43,48 @@ public class MainActivity extends AppCompatActivity {
         final ListView listView = (ListView) findViewById(R.id.eventListView);
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, android.R.id.text1);
         listView.setAdapter(adapter);
+        tvTitle = (TextView) findViewById(R.id.tvTitle);
+        tvDescription = (TextView) findViewById(R.id.tvDescription);
+        tvDate = (TextView) findViewById(R.id.tvDate);
+        tvLocation = (TextView) findViewById(R.id.tvLocation);
+        tvEventDetails = (TextView) findViewById(R.id.tvEventDetails);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                final int tempPosition = position;
+
+                mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Map<String, String> map = (Map) dataSnapshot.child("Events").child(String.valueOf(tempPosition + 1)).getValue();
+                        Log.i("title", map.get("title"));
+
+                        String tempTitle = map.get("title");
+                        String tempDescription = map.get("description");
+                        String tempDay = map.get("day");
+                        String tempMonth = map.get("month");
+                        String tempYear = map.get("year");
+                        String tempLocation = map.get("location");
+
+                        tvTitle.setText("Title: " + tempTitle);
+                        tvDescription.setText("Description: " + tempDescription);
+                        tvDate.setText("Date: " + tempMonth + "/" + tempDay + "/" + tempYear);
+                        tvLocation.setText("Location: " + tempLocation);
+                        tvEventDetails.setText("Event Details For: " + tempTitle);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+
+            }
+
+        });
 
         ValueEventListener newEventListener = new ValueEventListener() {
             @Override

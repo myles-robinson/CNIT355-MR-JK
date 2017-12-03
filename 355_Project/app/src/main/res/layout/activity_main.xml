@@ -42,5 +42,13 @@
         android:text="Create Event"
         android:onClick="createEvent"/>
 
+    <TextView
+        android:id="@+id/eventDescriptionEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Description: "
+        android:textSize="20sp"
+        android:layout_above="@id/createEventButton" />
+
 
 </RelativeLayout>

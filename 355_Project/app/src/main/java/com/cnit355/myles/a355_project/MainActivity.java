@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     ArrayAdapter<String> adapter;
     private static final int request_code = 5;
+    TextView descTextView;
 
 
     @Override
@@ -37,10 +39,40 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setTitle("Events");
 
+        descTextView = (TextView)findViewById(R.id.eventDescriptionEditText);
+
         mDatabase = FirebaseDatabase.getInstance().getReference();
         final ListView listView = (ListView) findViewById(R.id.eventListView);
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, android.R.id.text1);
         listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                final String tempTitle;
+                String tempLoc;
+                String tempMonth;
+                final int tempDay;
+                int tempYear;
+                final int tempPos = position;
+
+                mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String tempDesc;
+                        Log.i("position", String.valueOf(tempPos + 1));
+                        Map<String, String> map = (Map) dataSnapshot.child("Events").child(String.valueOf(tempPos + 1)).getValue();
+                        tempDesc = map.get("description");
+                        descTextView.setText("Description: " + tempDesc);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        });
 
         ValueEventListener newEventListener = new ValueEventListener() {
             @Override

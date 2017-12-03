@@ -132,7 +132,7 @@ public class CreateEventActivity extends AppCompatActivity {
                     eventTitle = String.valueOf(titleEditText.getText());
                     eventDescription = String.valueOf(descriptionEditText.getText());
                     eventLocation = String.valueOf(locationEditText.getText());
-                    Event newEvent = new Event(eventTitle, eventDescription, eventLocation, eventMonth, eventYear, eventDay);
+                    Event newEvent = new Event(eventTitle, eventDescription, eventLocation, eventMonth, eventYear, eventDay, eventID);
 
                     // mDatabase.child("Events").push().setValue(newEvent);
                     mDatabase.child("Events").child(String.valueOf(eventID)).setValue(newEvent);

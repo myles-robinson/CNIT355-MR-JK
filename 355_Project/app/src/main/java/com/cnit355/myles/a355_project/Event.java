@@ -11,6 +11,7 @@ public class Event {
     private String month;
     private int year;
     private int day;
+    private int id;
 
     public Event(){
         title = "";
@@ -19,15 +20,17 @@ public class Event {
         month= "";
         year = 0;
         day = 0;
+        id = 1;
     }
 
-    public Event(String t, String desc, String loc, String mo, int yr, int d){
+    public Event(String t, String desc, String loc, String mo, int yr, int d, int i){
         title = t;
         description = desc;
         location = loc;
         month = mo;
         year = yr;
         day = d;
+        id = i;
     }
 
     public String getTitle() {
@@ -76,5 +79,13 @@ public class Event {
 
     public void setDay(int day) {
         this.day = day;
+    }
+
+    public int getID() {
+        return id;
+    }
+
+    public void setID(int i) {
+        this.id = i;
     }
 }

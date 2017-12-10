@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
                         tvTitle.setText("Title: " + tempTitle);
                         tvDescription.setText("Description: " + tempDescription);
-                        tvDate.setText("Date: " + tempMonth + " " + tempDay + "," + tempYear);
+                        tvDate.setText("Date: " + tempMonth + " " + tempDay + ", " + tempYear);
                         tvLocation.setText("Location: " + tempLocation);
                         tvEventDetails.setText("Event Details For: " + tempTitle);
                     }

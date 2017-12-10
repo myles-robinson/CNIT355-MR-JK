@@ -28,12 +28,9 @@ public class CreateEventActivity extends AppCompatActivity {
 
     Spinner yearSpinner, daySpinner, monthSpinner;
     String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
-//    Integer[] days = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31};
     String[] days = {"1", "2","3", "4","7", "8","9", "10","11", "12","13", "14","15", "16","17", "18","19", "20","21", "22","23", "24","25", "26","27", "28","29", "30", "31"};
-//    Integer[] years = {2016, 2017, 2018};
     String[] years = {"2016", "2017", "2018"};
     String eventTitle, eventLocation, eventDescription, eventMonth, eventDay, eventYear;
-//    int eventYear, eventDay;
     Button submitButton, homeButton;
 
     private FirebaseAuth mFirebaseAuth;
@@ -82,9 +79,6 @@ public class CreateEventActivity extends AppCompatActivity {
         }
         else {
             mUserId = mFirebaseUser.getUid();
-
-            // Set up ListView
-
 
             // Add items via the Button and EditText at the bottom of the view.
             final EditText titleEditText = (EditText) findViewById(R.id.eventTitleEditText);
@@ -136,7 +130,6 @@ public class CreateEventActivity extends AppCompatActivity {
                     eventLocation = String.valueOf(locationEditText.getText());
                     Event newEvent = new Event(eventTitle, eventDescription, eventLocation, eventMonth, eventYear, eventDay, eventID);
 
-                    // mDatabase.child("Events").push().setValue(newEvent);
                     mDatabase.child("Events").child(String.valueOf(eventID)).setValue(newEvent);
 
                     titleEditText.setText("");

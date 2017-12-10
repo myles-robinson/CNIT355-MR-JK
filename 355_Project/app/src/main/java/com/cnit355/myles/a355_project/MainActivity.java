@@ -59,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         Map<String, String> map = (Map) dataSnapshot.child("Events").child(String.valueOf(tempPosition + 1)).getValue();
-                        Log.i("title", map.get("title"));
 
                         String tempTitle = map.get("title");
                         String tempDescription = map.get("description");
@@ -70,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
                         tvTitle.setText("Title: " + tempTitle);
                         tvDescription.setText("Description: " + tempDescription);
-                        tvDate.setText("Date: " + tempMonth + "/" + tempDay + "/" + tempYear);
+                        tvDate.setText("Date: " + tempMonth + " " + tempDay + "," + tempYear);
                         tvLocation.setText("Location: " + tempLocation);
                         tvEventDetails.setText("Event Details For: " + tempTitle);
                     }
@@ -86,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
+        //listener to get new data from firebase
         ValueEventListener newEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -95,7 +95,6 @@ public class MainActivity extends AppCompatActivity {
                     String title = map.get("title");
                     adapter.add(title);
                     id++;
-                    Log.i("key", snap.getKey());
                 }
             }
 

@@ -45,6 +45,14 @@
         android:layout_alignStart="@+id/tvEventDetails"
         android:layout_marginBottom="20dp" />
 
+    <Button
+        android:id="@+id/deleteEventButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete Event"
+        android:layout_toRightOf="@id/createEventButton"
+        android:layout_alignParentBottom="true"/>
+
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"

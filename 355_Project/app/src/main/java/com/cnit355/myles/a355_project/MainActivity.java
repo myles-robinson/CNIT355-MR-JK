@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayAdapter<String> adapter;
     private static final int request_code = 5;
     TextView tvTitle, tvDescription, tvDate, tvLocation, tvEventDetails;
+    Button deleteBtn;
 
 
     @Override
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         tvDate = (TextView) findViewById(R.id.tvDate);
         tvLocation = (TextView) findViewById(R.id.tvLocation);
         tvEventDetails = (TextView) findViewById(R.id.tvEventDetails);
+        deleteBtn = (Button) findViewById(R.id.deleteEventButton);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -58,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
                 mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        Map<String, String> map = (Map) dataSnapshot.child("Events").child(String.valueOf(tempPosition + 1)).getValue();
+                        final Map<String, String> map = (Map) dataSnapshot.child("Events").child(String.valueOf(tempPosition + 1)).getValue();
 
                         String tempTitle = map.get("title");
                         String tempDescription = map.get("description");
@@ -72,6 +74,14 @@ public class MainActivity extends AppCompatActivity {
                         tvDate.setText("Date: " + tempMonth + " " + tempDay + ", " + tempYear);
                         tvLocation.setText("Location: " + tempLocation);
                         tvEventDetails.setText("Event Details For: " + tempTitle);
+
+                        deleteBtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Log.e("delete","delete clicked");
+                                mDatabase.child("Events").child(String.valueOf(tempPosition)).removeValue();
+                            }
+                        });
                     }
 
                     @Override
@@ -79,10 +89,7 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 });
-
-
             }
-
         });
 
         //listener to get new data from firebase
@@ -91,10 +98,16 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 int id = 1;
                 for (DataSnapshot snap : dataSnapshot.child("Events").getChildren()) {
-                    Map<String, String> map = (Map) dataSnapshot.child("Events").child(String.valueOf(id)).getValue();
-                    String title = map.get("title");
-                    adapter.add(title);
-                    id++;
+                    if(dataSnapshot.child("Events").child(String.valueOf(id)).getValue() !=  null){
+                        Map<String, String> map = (Map) dataSnapshot.child("Events").child(String.valueOf(id)).getValue();
+                        String title = map.get("title");
+                        adapter.add(title);
+                        Log.e("id",String.valueOf(id));
+                        id++;
+                    }
+                    else{
+                        id++;
+                    }
                 }
             }
 

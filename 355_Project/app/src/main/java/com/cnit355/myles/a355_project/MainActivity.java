@@ -59,19 +59,26 @@ public class MainActivity extends AppCompatActivity {
                 mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        final Map<String, String> map = (Map) dataSnapshot.child("Events").child(String.valueOf(tempPosition + 1)).getValue();
-                        String tempTitle = map.get("title");
-                        String tempDescription = map.get("description");
-                        String tempDay = map.get("day");
-                        String tempMonth = map.get("month");
-                        String tempYear = map.get("year");
-                        String tempLocation = map.get("location");
+                        int index=tempPosition;
+                        for(int i = 0; i < dataSnapshot.child("Events").getChildrenCount(); i++){
+                            if(dataSnapshot.child("Events").child(String.valueOf(i + 1)).getValue() != null){
+                                final Map<String, String> map = (Map) dataSnapshot.child("Events").child(String.valueOf(i + 1)).getValue();
+                                String tempTitle = map.get("title");
+                                String tempDescription = map.get("description");
+                                String tempDay = map.get("day");
+                                String tempMonth = map.get("month");
+                                String tempYear = map.get("year");
+                                String tempLocation = map.get("location");
 
-                        tvTitle.setText("Title: " + tempTitle);
-                        tvDescription.setText("Description: " + tempDescription);
-                        tvDate.setText("Date: " + tempMonth + " " + tempDay + ", " + tempYear);
-                        tvLocation.setText("Location: " + tempLocation);
-                        tvEventDetails.setText("Event Details For: " + tempTitle);
+                                tvTitle.setText("Title: " + tempTitle);
+                                tvDescription.setText("Description: " + tempDescription);
+                                tvDate.setText("Date: " + tempMonth + " " + tempDay + ", " + tempYear);
+                                tvLocation.setText("Location: " + tempLocation);
+                                tvEventDetails.setText("Event Details For: " + tempTitle);
+                            }
+
+                        }
+
 
                         deleteBtn.setOnClickListener(new View.OnClickListener() {
                             @Override

@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
     TextView tvTitle, tvDescription, tvDate, tvLocation, tvEventDetails;
     Button deleteBtn;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         final Map<String, String> map = (Map) dataSnapshot.child("Events").child(String.valueOf(tempPosition + 1)).getValue();
-
                         String tempTitle = map.get("title");
                         String tempDescription = map.get("description");
                         String tempDay = map.get("day");
@@ -78,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
                         deleteBtn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                Log.e("delete","delete clicked");
                                 mDatabase.child("Events").child(String.valueOf(tempPosition)).removeValue();
                             }
                         });

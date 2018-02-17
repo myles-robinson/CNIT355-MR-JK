@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayAdapter<String> adapter;
     private static final int request_code = 5;
     TextView tvTitle, tvDescription, tvDate, tvLocation, tvEventDetails;
+    Button deleteEvent;
 
 
     @Override
@@ -48,18 +49,26 @@ public class MainActivity extends AppCompatActivity {
         tvDate = (TextView) findViewById(R.id.tvDate);
         tvLocation = (TextView) findViewById(R.id.tvLocation);
         tvEventDetails = (TextView) findViewById(R.id.tvEventDetails);
+        deleteEvent = (Button) findViewById(R.id.deleteEventButton);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
 
                 final int tempPosition = position;
+
+                deleteEvent.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Event newEvent = new Event();
+                        mDatabase.child("Events").child(String.valueOf(position + 1)).setValue(newEvent);
+                    }
+                });
 
                 mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         Map<String, String> map = (Map) dataSnapshot.child("Events").child(String.valueOf(tempPosition + 1)).getValue();
-
                         String tempTitle = map.get("title");
                         String tempDescription = map.get("description");
                         String tempDay = map.get("day");
@@ -90,11 +99,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 int id = 1;
-                for (DataSnapshot snap : dataSnapshot.child("Events").getChildren()) {
-                    Map<String, String> map = (Map) dataSnapshot.child("Events").child(String.valueOf(id)).getValue();
-                    String title = map.get("title");
-                    adapter.add(title);
-                    id++;
+                for (int i = 0; i < dataSnapshot.child("Events").getChildrenCount(); i++) {
+                    if(dataSnapshot.child("Events").child(String.valueOf(id)).getValue() != null){
+                        Map<String, String> map = (Map) dataSnapshot.child("Events").child(String.valueOf(id)).getValue();
+                        String title = map.get("title");
+                        adapter.add(title);
+                        id++;
+                    }
+                    else{
+                        id++;
+                    }
                 }
             }
 

@@ -1,5 +1,6 @@
 package com.cnit355.myles.a355_project;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -60,12 +61,13 @@ public class MainActivity extends AppCompatActivity {
                 deleteEvent.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Event newEvent = new Event();
-                        mDatabase.child("Events").child(String.valueOf(position + 1)).setValue(newEvent);
+                        mDatabase.child("Events").child(String.valueOf(tempPosition+1)).removeValue();
+                        adapter.clear();
                     }
                 });
 
                 mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @SuppressLint("SetTextI18n")
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         Map<String, String> map = (Map) dataSnapshot.child("Events").child(String.valueOf(tempPosition + 1)).getValue();
@@ -88,10 +90,7 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 });
-
-
             }
-
         });
 
         //listener to get new data from firebase
